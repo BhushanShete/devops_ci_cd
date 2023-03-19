@@ -45,7 +45,7 @@ pipeline {
 			script {
 				if (env.BRANCH_NAME == 'master'){
 				sh """
-				sudo rm -rf /root/git_job_master
+				rm -rf /root/git_job_master
 				sudo mkdir /root/git_job_master
 				sudo cp -rvf . /root/git_job_master
 
