@@ -45,7 +45,7 @@ pipeline {
 			script {
 				if (env.BRANCH_NAME == 'master'){
 				sh """
-				sudo rm -rfS /root/git_job_master
+				sudo rm -rf /root/git_job_master
 				sudo mkdir /root/git_job_master
 				sudo cp -rvf . /root/git_job_master
 
@@ -60,7 +60,7 @@ pipeline {
                 """
 			} else if (env.BRANCH_NAME == 'dev'){
 				sh """
-                		sudo rm -rfS /root/git_job
+                		sudo rm -rf /root/git_job
 				sudo mkdir /root/git_job
 				sudo cp -rvf . /root/git_job
 				if sudo docker ps|grep dev
