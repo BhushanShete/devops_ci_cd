@@ -5,7 +5,7 @@ pipeline {
     stage('Code Checkout') {
 				steps {
 					script {
-					(env.BRANCH_NAME == 'master'){
+					if (env.BRANCH_NAME == 'master'){
 					checkout(
 						[
 							$class: 'GitSCM',
@@ -28,7 +28,13 @@ pipeline {
 							userRemoteConfigs: [[url: 'https://github.com/BhushanShete/devops_ci_cd.git']]						
 						]
 						)
-					} 
+					} else if (env.BRANCH_NAME == 'dev'){	
+						checkout([
+							$class: 'GitSCM', 
+							branches: [[name: '*/dev']], 
+							userRemoteConfigs: [[url: 'https://github.com/BhushanShete/devops_ci_cd.git']]
+							])
+						} 
 					}
 				}
 		}
