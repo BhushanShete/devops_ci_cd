@@ -56,7 +56,21 @@ pipeline {
 				sudo docker run -dit -p 83:80 -v /root/git_job_master:/usr/local/apache2/htdocs --name master httpd
 				fi
                 """
-			} 
+			} else if (env.BRANCH_NAME == 'dev'){
+				sh """
+                sudo rm -rfS /root/git_job
+				sudo mkdir /root/git_job
+				sudo cp -rvf . /root/git_job
+				if sudo docker ps|grep dev
+				then
+				sudo docker container stop dev
+				sudo docker rm -f dev
+				sudo docker run -dit -p 82:80 -v /root/git_job:/usr/local/apache2/htdocs --name dev httpd
+				else
+				sudo docker run -dit -p 82:80 -v /root/git_job:/usr/local/apache2/htdocs --name dev httpd
+				fi
+                """
+				} 
 			}
 			}
 		}
