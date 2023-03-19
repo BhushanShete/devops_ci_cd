@@ -5,7 +5,7 @@ pipeline {
     stage('Code Checkout') {
 				steps {
 					script {
-					if (env.BRANCH_NAME == 'master'){
+					(env.BRANCH_NAME == 'master'){
 					checkout(
 						[
 							$class: 'GitSCM',
@@ -35,7 +35,7 @@ pipeline {
 	stage('Deploying on Docker') {
 		steps {
 			script {
-				if (env.BRANCH_NAME == 'master'){
+				(env.BRANCH_NAME == 'master'){
 				sh """
 				sudo rm -rfS /root/git_job_master
 				sudo mkdir /root/git_job_master
@@ -57,7 +57,7 @@ pipeline {
 		stage('Testing Build') {
 		steps {
 			script {
-				if (env.BRANCH_NAME == 'master'){
+				(env.BRANCH_NAME == 'master'){
 				sh """
 				if [ `curl -o /dev/null -s -w "%{http_code}\n" http://15.207.89.83:83/index.html` = 200 ];
 				then
@@ -75,7 +75,7 @@ pipeline {
 	post {
 		success {
 			script {
-			if (env.BRANCH_NAME == 'master'){
+			(env.BRANCH_NAME == 'master'){
 				withCredentials([usernamePassword(credentialsId: '434b0b23-9deb-4ee6-85d4-43c4c23513bb', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
 				sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/BhushanShete/devops_ci_cd.git HEAD:master')
 					}
