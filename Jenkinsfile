@@ -46,8 +46,8 @@ pipeline {
 				if (env.BRANCH_NAME == 'master'){
 				sh """
 				rm -rf /root/git_job_master
-				sudo mkdir /root/git_job_master
-				sudo cp -rvf . /root/git_job_master
+				mkdir /root/git_job_master
+				cp -rvf . /root/git_job_master
 
 				if sudo docker ps|grep master
 				then
