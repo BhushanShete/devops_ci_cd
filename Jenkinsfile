@@ -43,7 +43,7 @@ pipeline {
 	stage('Deploying on Docker') {
 		steps {
 			script {
-				(env.BRANCH_NAME == 'master'){
+				if (env.BRANCH_NAME == 'master'){
 				sh """
 				sudo rm -rfS /root/git_job_master
 				sudo mkdir /root/git_job_master
